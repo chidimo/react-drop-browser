@@ -1,12 +1,14 @@
 {
   "name": "react-drop-browser",
   "version": "0.1.0",
-  "private": true,
+  "description": "Simple, customizable react drag and drop component. Also has a file browser.",
+  "main": "dist/distribution.js",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "eslint": "^6.8.0",
+    "node-sass": "^4.13.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.1"
@@ -19,7 +21,7 @@
     "lint": "./node_modules/.bin/eslint ./src",
     "pretty": "prettier --write '**/*.{ts,js,scss,html,json}' '!dist/**' '!public/**'",
     "postpretty": "yarn lint --fix",
-    "prepublishOnly": "babel ./src --out-dir ./dist -s inline"
+    "prepublishOnly": "babel ./src --out-dir ./dist -s inline --ignore './src/usage','./src/App.js','./src/index.js'"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -36,7 +38,28 @@
       "last 1 safari version"
     ]
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chidimo/react-drop-browser"
+  },
+  "keywords": [
+    "drag",
+    "drop",
+    "react",
+    "browse",
+    "drag-and-drop"
+  ],
+  "author": "Chidi Orji (orjichidi95@gmail.com)",
+  "license": "MIT",
+  "files": [
+    "dist/*"
+  ],
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "prettier": "^1.19.1"
   }
 }
