@@ -2,8 +2,6 @@
 
 Simple, customizable react drag and drop component. Also comes with a file browser.
 
-Demo URL <https://codesandbox.io/embed/react-drag-drop-browser-demo-6j6rl>
-
 [NPM](https://www.npmjs.com/) package URL: <https://www.npmjs.com/package/react-drop-browser>
 
 Current version: `0.1.0`
@@ -31,14 +29,19 @@ The included example app shows how to use the `DragDropSelect` component to buil
 |`iconStyle` (*optional, object*) | `{ width: '20px', height: '20px' }` | For passing extra styling to the default file upload icon. |
 | `IconComponent` (*optional, Component*) | [feathericons](https://feathericons.com/) svg | Use this to pass a file upload icon of your choice. The only requirement is that it must be an `svg` element wrapped up as a `React` component. Default is shown [below](#default-icon). |
 | `messageText` (*optional, string*) | *Drag a file here to upload or click here to browse for files.* | Set your preferred display text.|
-| `messageTextClass` (*optional, string*) | none | For styling the display text. |
 | `allowedFileTypes` (*optional, string*) | none | Specify acceptable file types. |
 | `allowMultipleFiles` (*optional, bool*) | `false` | If file browser should accept multiple files |
 | `dragDropHandler` (*required, function*) | none | callback that receives an array of files |
 | `fileBrowserHandler` (*required, function*) | none | callback that receives an array of files |
 
 The file browser div has a class of `file-browser-zone`
-The drag and drop zone has a class of `drag-drop-zone`. When the item is inside the drag and drop zone, an additional class `inside-drag-area` is activated.
+The drag and drop zone has a class of `drag-drop-zone`. When the item is inside the drag and drop zone, an additional class `inside-drag-area` is activated. You may update the style at this time with CSS like so 
+
+```css
+.drag-drop-zone.inside-drag-area {
+  opacity: 0.5;
+}
+```
 
 ### Default icon
 
@@ -64,7 +67,3 @@ const FiUpload = () => {
   );
 };
 ```
-
-## Credits
-
-1. [Publish a react component as npm module](https://parastudios.de/create-a-react-component-as-npm-module/)
