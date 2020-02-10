@@ -1,5 +1,5 @@
 import React from 'react';
-import ShowFiles from './usage/ShowFiles';
+import ShowFiles from './demo/ShowFiles';
 
 function App() {
   return (

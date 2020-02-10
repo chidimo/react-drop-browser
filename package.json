@@ -1,6 +1,6 @@
 {
   "name": "react-drop-browser",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Simple, customizable react drag and drop component. Also has a file browser.",
   "main": "dist/distribution.js",
   "dependencies": {
@@ -21,7 +21,7 @@
     "lint": "./node_modules/.bin/eslint ./src",
     "pretty": "prettier --write '**/*.{ts,js,scss,html,json}' '!dist/**' '!public/**'",
     "postpretty": "yarn lint --fix",
-    "prepublishOnly": "babel ./src --out-dir ./dist -s inline --ignore './src/usage','./src/App.js','./src/index.js'"
+    "prepublishOnly": "babel ./src --out-dir ./dist -s inline --ignore './src/demo','./src/App.js','./src/index.js'"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -61,5 +61,8 @@
     "@babel/preset-react": "^7.8.3",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "prettier": "^1.19.1"
+  },
+  "peerDependencies": {
+    "react": "^16.12.0"
   }
 }

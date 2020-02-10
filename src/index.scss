@@ -1,33 +1,29 @@
-body {
-  margin: 0;
-}
-
-button {
-  border: none;
-  background: none;
-  padding: 0;
-  cursor: pointer;
-}
-
-p {
-  margin: 0;
-  margin-bottom: 0.898rem;
-  color: #737a91;
-}
-
-.upload-box-frame {
-  margin-top: 2rem;
+.drag-drop-zone {
   padding: 2rem;
+  margin-top: 2rem;
   text-align: center;
-  border-radius: 4px;
-  border: 2px dashed #dbe0e6;
-  background-color: #f9f9f9;
-}
+  border-radius: 0.5rem;
+  border: 1px solid grey;
+  background: #f9f9f9;
 
-.display-text {
-  color: #737a91;
-  font-family: GorditaRegular;
-  font-size: 1.1rem;
-  line-height: 1.5;
-  letter-spacing: -0.03em;
+  &.inside-drag-area {
+    opacity: 0.4;
+  }
+
+  .file-browser-zone {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid grey;
+  }
+
+  button {
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    line-height: 1.5;
+    background: none;
+    color: #737a91;
+    font-size: 1.1rem;
+    letter-spacing: -0.03em;
+  }
 }

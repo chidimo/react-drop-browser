@@ -1,74 +1,64 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import propTypes from 'prop-types';
 
 import FiUpload from './FiUpload';
 
 const FileBrowser = props => {
   const {
-    inputID,
-    RDDBIconStyle,
-    insideDragArea,
-    RDDBDisplayText,
-    RDDBIconComponent,
-    RDDBAcceptMultiple,
-    RDDBAcceptFileTypes,
-    RDDBDisplayTextClass,
-    RDDBFileBrowserHandler,
-    RDDBFileBrowserDivClass,
-    RDDBFileBrowserDivStyle,
+    iconStyle,
+    messageText,
+    IconComponent,
+    allowedFileTypes,
+    allowMultipleFiles,
+    fileBrowserHandler,
   } = props;
+
+  const inputRef = useRef();
 
   const pickHandler = e => {
     e.preventDefault();
     e.stopPropagation();
-    RDDBFileBrowserHandler([ ...e.target.files ]);
+    fileBrowserHandler([ ...e.target.files ]);
   };
 
   return (
-    <div
-      style={{
-        ...RDDBFileBrowserDivStyle,
-        border: insideDragArea ? '1px dotted #07F' : '',
-      }}
-      className={RDDBFileBrowserDivClass}
-      onClick={() => {
-        document.getElementById(inputID).click();
-      }}
-    >
-      {RDDBIconComponent !== undefined ? (
-        <RDDBIconComponent
-          style={{ width: '20px', height: '20px', ...RDDBIconStyle }}
+    <div onClick={() => inputRef.current.click()} className="file-browser-zone">
+      {IconComponent !== undefined ? (
+        <IconComponent
+          style={{ width: '20px', height: '20px', ...iconStyle }}
         />
       ) : (
-        <FiUpload style={{ width: '20px', height: '20px', ...RDDBIconStyle }} />
+        <FiUpload style={{ width: '20px', height: '20px', ...iconStyle }} />
       )}
 
       <p>
         {' '}
-        <button className={RDDBDisplayTextClass}>
-          {RDDBDisplayText ||
+        <button>
+          {messageText ||
             'Drag a file here to upload or click here to browse for files.'}
         </button>
-        {RDDBAcceptMultiple ? (
+        {allowMultipleFiles ? (
           <input
             multiple
             value=""
             type="file"
-            id={inputID}
+            id={'file-selector'}
+            accept={allowedFileTypes}
             style={{ display: 'none' }}
-            accept={RDDBAcceptFileTypes}
             autoComplete={'new-password'}
             onChange={e => pickHandler(e)}
+            ref={node => (inputRef.current = node)}
           />
         ) : (
           <input
             value=""
             type="file"
-            id={inputID}
+            id={'file-selector'}
+            accept={allowedFileTypes}
             style={{ display: 'none' }}
-            accept={RDDBAcceptFileTypes}
             autoComplete={'new-password'}
             onChange={e => pickHandler(e)}
+            ref={node => (inputRef.current = node)}
           />
         )}
       </p>
@@ -77,17 +67,13 @@ const FileBrowser = props => {
 };
 
 FileBrowser.propTypes = {
-  inputID: propTypes.string,
+  iconStyle: propTypes.object,
+  messageText: propTypes.string,
+  IconComponent: propTypes.func,
   insideDragArea: propTypes.bool,
-  RDDBIconStyle: propTypes.object,
-  RDDBAcceptMultiple: propTypes.bool,
-  RDDBIconComponent: propTypes.func,
-  RDDBDisplayText: propTypes.string,
-  RDDBDisplayTextClass: propTypes.string,
-  RDDBAcceptFileTypes: propTypes.string,
-  RDDBFileBrowserDivClass: propTypes.string,
-  RDDBFileBrowserDivStyle: propTypes.object,
-  RDDBFileBrowserHandler: propTypes.func.isRequired,
+  allowedFileTypes: propTypes.string,
+  allowMultipleFiles: propTypes.bool,
+  fileBrowserHandler: propTypes.func.isRequired,
 };
 
 export default FileBrowser;

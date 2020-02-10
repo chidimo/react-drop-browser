@@ -12,8 +12,13 @@ Current version: `0.1.0`
 
 Installation can be done with `yarn` or `npm`
 
-1. `yarn add react-drop-browser`
-1. `npm install react-drop-browser`
+```cmd
+# yarn
+yarn add react-drop-browser
+
+# npm
+npm install react-drop-browser
+```
 
 ## Usage
 
@@ -23,17 +28,17 @@ The included example app shows how to use the `DragDropSelect` component to buil
 
 |       Prop       |       Default    |     Function     |
 | ---------------- | ---------------- | ---------------- |
-|`RDDBInputID` (*optional, string*) | `__RDDB_input__` | Useful when rendering several file uploaders on the same page, where each ID is required to be unique|
-|`RDDBIconStyle` (*optional, object*) | `{ width: '20px', height: '20px' }` | For passing extra styling to the default file upload icon. |
-| `RDDBIconComponent` (*optional, Component*) | [feathericons](https://feathericons.com/) svg | Use this to pass a file upload icon of your choice. The only requirement is that it must be an `svg` element wrapped up as a `React` component. Default is shown [below](#default-icon). |
-| `RDDBDisplayText` (*optional, string*) | *Drag a file here to upload or click here to browse for files.* | Set your preferred display text.|
-| `RDDBDisplayTextClass` (*optional, string*) | none | For styling the display text. |
-| `RDDBFileBrowserDivClass` (*optional, string*) | none | Set a class on the drag and drop area. |
-| `RDDBFileBrowserDivStyle` (*optinal, object*) | none | Style the drag and drop area.
-| `RDDBAcceptFileTypes` (*optional, string*) | none | Specify acceptable file types. |
-| `RDDBAcceptMultiple` (*optional, bool*) | `false` | If file browser should accept multiple files |
-| `RDDBDragDropHandler` (*required, function*) | none | callback that receives an array of files |
-| `RDDBFileBrowserHandler` (*required, function*) | none | callback that receives an array of files |
+|`iconStyle` (*optional, object*) | `{ width: '20px', height: '20px' }` | For passing extra styling to the default file upload icon. |
+| `IconComponent` (*optional, Component*) | [feathericons](https://feathericons.com/) svg | Use this to pass a file upload icon of your choice. The only requirement is that it must be an `svg` element wrapped up as a `React` component. Default is shown [below](#default-icon). |
+| `messageText` (*optional, string*) | *Drag a file here to upload or click here to browse for files.* | Set your preferred display text.|
+| `messageTextClass` (*optional, string*) | none | For styling the display text. |
+| `allowedFileTypes` (*optional, string*) | none | Specify acceptable file types. |
+| `allowMultipleFiles` (*optional, bool*) | `false` | If file browser should accept multiple files |
+| `dragDropHandler` (*required, function*) | none | callback that receives an array of files |
+| `fileBrowserHandler` (*required, function*) | none | callback that receives an array of files |
+
+The file browser div has a class of `file-browser-zone`
+The drag and drop zone has a class of `drag-drop-zone`. When the item is inside the drag and drop zone, an additional class `inside-drag-area` is activated.
 
 ### Default icon
 

@@ -37,7 +37,7 @@ const ShowFiles = () => {
           errDispatch({
             type: 'SET_ERROR_MSG',
             showError: true,
-            error: 'File is already uploaded',
+            error: `${file.name} already exists`,
           });
           return {};
         default:
@@ -59,12 +59,10 @@ const ShowFiles = () => {
       )}
 
       <DragDropSelect
-        RDDBDragDropHandler={handleDroppedFiles}
-        RDDBFileBrowserHandler={handleDroppedFiles}
-        RDDBAcceptFileTypes={'application/pdf'}
-        RDDBFileBrowserDivClass={'upload-box-frame'}
-        RDDBDisplayTextClass={'display-text'}
-        RDDBAcceptMultiple={true}
+        allowMultipleFiles={true}
+        allowedFileTypes={'application/pdf'}
+        dragDropHandler={handleDroppedFiles}
+        fileBrowserHandler={handleDroppedFiles}
       />
 
       {fileHandler.fileList.map(file => {

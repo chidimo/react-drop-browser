@@ -6,23 +6,17 @@ import FileBrowser from './FileBrowser';
 
 const DragDropSelect = props => {
   const {
-    RDDBInputID,
-    RDDBIconStyle,
-    RDDBDisplayText,
-    RDDBIconComponent,
-    RDDBAcceptMultiple,
-    RDDBDragDropHandler,
-    RDDBAcceptFileTypes,
-    RDDBDisplayTextClass,
-    RDDBFileBrowserHandler,
-    RDDBFileBrowserDivClass,
-    RDDBFileBrowserDivStyle,
+    iconStyle,
+    messageText,
+    IconComponent,
+    dragDropHandler,
+    allowedFileTypes,
+    allowMultipleFiles,
+    fileBrowserHandler,
   } = props;
 
-  const inputID = RDDBInputID || '__RDDB_input__';
-
   const initState = {
-    dragCounter: 0,
+    nestingCount: 0,
     dropped: false,
     dragging: false,
     insideDragArea: false,
@@ -30,14 +24,14 @@ const DragDropSelect = props => {
 
   const reducer = (state, action) => {
     switch (action.type) {
-    case 'SET_DRAG_COUNTER':
-      return { ...state, dragCounter: action.dragCounter };
     case 'SET_DROPPED':
       return { ...state, dropped: action.dropped };
-    case 'SET_INSIDE_DRAG_AREA':
-      return { ...state, insideDragArea: action.insideDragArea };
     case 'SET_DRAGGING':
       return { ...state, dragging: action.dragging };
+    case 'SET_INSIDE_DRAG_AREA':
+      return { ...state, insideDragArea: action.insideDragArea };
+    case 'SET_NESTING_COUNT':
+      return { ...state, nestingCount: action.nestingCount };
     case 'RESET':
       return initState;
     default:
@@ -51,37 +45,29 @@ const DragDropSelect = props => {
     <DragAndDrop
       info={info}
       dispatch={dispatch}
-      RDDBFileDropHandler={RDDBDragDropHandler}
+      fileDropHandler={dragDropHandler}
+      insideDragArea={info.insideDragArea}
     >
       <FileBrowser
-        inputID={inputID}
-        RDDBIconStyle={RDDBIconStyle}
-        RDDBDisplayText={RDDBDisplayText}
-        insideDragArea={info.insideDragArea}
-        RDDBIconComponent={RDDBIconComponent}
-        RDDBAcceptMultiple={RDDBAcceptMultiple}
-        RDDBAcceptFileTypes={RDDBAcceptFileTypes}
-        RDDBDisplayTextClass={RDDBDisplayTextClass}
-        RDDBFileBrowserHandler={RDDBFileBrowserHandler}
-        RDDBFileBrowserDivClass={RDDBFileBrowserDivClass}
-        RDDBFileBrowserDivStyle={RDDBFileBrowserDivStyle}
+        iconStyle={iconStyle}
+        messageText={messageText}
+        IconComponent={IconComponent}
+        allowedFileTypes={allowedFileTypes}
+        fileBrowserHandler={fileBrowserHandler}
+        allowMultipleFiles={allowMultipleFiles}
       />
     </DragAndDrop>
   );
 };
 
 DragDropSelect.propTypes = {
-  RDDBInputID: propTypes.string,
-  RDDBIconStyle: propTypes.object,
-  RDDBAcceptMultiple: propTypes.bool,
-  RDDBIconComponent: propTypes.func,
-  RDDBDisplayText: propTypes.string,
-  RDDBDisplayTextClass: propTypes.string,
-  RDDBFileBrowserDivClass: propTypes.string,
-  RDDBFileBrowserDivStyle: propTypes.object,
-  RDDBDragDropHandler: propTypes.func.isRequired,
-  RDDBFileBrowserHandler: propTypes.func.isRequired,
-  RDDBAcceptFileTypes: propTypes.string,
+  messageText: propTypes.string,
+  iconStyle: propTypes.object,
+  allowMultipleFiles: propTypes.bool,
+  IconComponent: propTypes.func,
+  dragDropHandler: propTypes.func.isRequired,
+  fileBrowserHandler: propTypes.func.isRequired,
+  allowedFileTypes: propTypes.string,
 };
 
 export default DragDropSelect;
