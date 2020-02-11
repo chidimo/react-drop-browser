@@ -1,37 +1,37 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
+// The cursorDepth variable helps us avoid the situation of multiple dragEnter events
+// When dragEnter is fired, we increment cursorDepth. So for each dragEnter event,
+// cursorDepth increments by 1.
+// When a dragLeave is fired, we decrement cursorDepth. If cursorDepth is still > 0,
+// we know we're not yet at the topmost div, and we don't set any state.
+
 const DragAndDrop = props => {
-  const { info, children, dispatch, insideDragArea, fileDropHandler } = props;
+  const { info, children, dispatch, inDropZone, fileDropHandler } = props;
 
   const handleDragEnter = e => {
     e.preventDefault();
     e.stopPropagation();
 
+    dispatch({ type: 'INCREMENT_CURSOR_DEPTH' });
     dispatch({ type: 'SET_DROPPED', dropped: false });
-    dispatch({
-      type: 'SET_NESTING_COUNT',
-      nestingCount: info.nestingCount + 1,
-    });
   };
 
   const handleDragLeave = e => {
     e.preventDefault();
     e.stopPropagation();
 
-    dispatch({ type: 'SET_INSIDE_DRAG_AREA', insideDragArea: false });
-    dispatch({
-      type: 'SET_NESTING_COUNT',
-      nestingCount: info.nestingCount - 1,
-    });
-    if (info.nestingCount > 0) return;
+    dispatch({ type: 'DECREMENT_CURSOR_DEPTH' });
+    if (info.cursorDepth > 0) return;
+    dispatch({ type: 'SET_IN_DROP_ZONE', inDropZone: false });
   };
 
   const handleDragOver = e => {
     e.preventDefault();
     e.stopPropagation();
     e.dataTransfer.dropEffect = 'copy';
-    dispatch({ type: 'SET_INSIDE_DRAG_AREA', insideDragArea: true });
+    dispatch({ type: 'SET_IN_DROP_ZONE', inDropZone: true });
   };
 
   const handleDrop = e => {
@@ -41,7 +41,7 @@ const DragAndDrop = props => {
     if (e.dataTransfer.files) {
       fileDropHandler([ ...e.dataTransfer.files ]);
       e.dataTransfer.clearData();
-      dispatch({ type: 'SET_NESTING_COUNT', nestingCount: 0 });
+      dispatch({ type: 'RESET_CURSOR_DEPTH', cursorDepth: 0 });
     }
     dispatch({ type: 'RESET' });
   };
@@ -49,7 +49,7 @@ const DragAndDrop = props => {
   return (
     <div
       className={
-        insideDragArea ? 'drag-drop-zone inside-drag-area' : 'drag-drop-zone'
+        inDropZone ? 'drag-drop-zone inside-drag-area' : 'drag-drop-zone'
       }
       onDrop={e => handleDrop(e)}
       onDragOver={e => handleDragOver(e)}
@@ -65,7 +65,7 @@ DragAndDrop.propTypes = {
   info: propTypes.object,
   dispatch: propTypes.func,
   children: propTypes.object,
-  insideDragArea: propTypes.bool,
+  inDropZone: propTypes.bool,
   fileDropHandler: propTypes.func,
 };
 

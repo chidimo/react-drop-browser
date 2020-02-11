@@ -16,10 +16,10 @@ const DragDropSelect = props => {
   } = props;
 
   const initState = {
-    nestingCount: 0,
+    cursorDepth: 0,
     dropped: false,
     dragging: false,
-    insideDragArea: false,
+    inDropZone: false,
   };
 
   const reducer = (state, action) => {
@@ -28,10 +28,14 @@ const DragDropSelect = props => {
       return { ...state, dropped: action.dropped };
     case 'SET_DRAGGING':
       return { ...state, dragging: action.dragging };
-    case 'SET_INSIDE_DRAG_AREA':
-      return { ...state, insideDragArea: action.insideDragArea };
-    case 'SET_NESTING_COUNT':
-      return { ...state, nestingCount: action.nestingCount };
+    case 'SET_IN_DROP_ZONE':
+      return { ...state, inDropZone: action.inDropZone };
+    case 'RESET_CURSOR_DEPTH':
+      return { ...state, cursorDepth: 0 };
+    case 'INCREMENT_CURSOR_DEPTH':
+      return { ...state, cursorDepth: state.cursorDepth + 1 };
+    case 'DECREMENT_CURSOR_DEPTH':
+      return { ...state, cursorDepth: state.cursorDepth - 1 };
     case 'RESET':
       return initState;
     default:
@@ -46,7 +50,7 @@ const DragDropSelect = props => {
       info={info}
       dispatch={dispatch}
       fileDropHandler={dragDropHandler}
-      insideDragArea={info.insideDragArea}
+      inDropZone={info.inDropZone}
     >
       <FileBrowser
         iconStyle={iconStyle}

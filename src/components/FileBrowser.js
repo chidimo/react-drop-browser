@@ -70,7 +70,7 @@ FileBrowser.propTypes = {
   iconStyle: propTypes.object,
   messageText: propTypes.string,
   IconComponent: propTypes.func,
-  insideDragArea: propTypes.bool,
+  inDropZone: propTypes.bool,
   allowedFileTypes: propTypes.string,
   allowMultipleFiles: propTypes.bool,
   fileBrowserHandler: propTypes.func.isRequired,
