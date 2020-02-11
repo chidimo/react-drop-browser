@@ -16,7 +16,7 @@ const DragDropSelect = props => {
   } = props;
 
   const initState = {
-    cursorDepth: 0,
+    dropDepth: 0,
     dropped: false,
     dragging: false,
     inDropZone: false,
@@ -30,12 +30,12 @@ const DragDropSelect = props => {
       return { ...state, dragging: action.dragging };
     case 'SET_IN_DROP_ZONE':
       return { ...state, inDropZone: action.inDropZone };
-    case 'RESET_CURSOR_DEPTH':
-      return { ...state, cursorDepth: 0 };
-    case 'INCREMENT_CURSOR_DEPTH':
-      return { ...state, cursorDepth: state.cursorDepth + 1 };
-    case 'DECREMENT_CURSOR_DEPTH':
-      return { ...state, cursorDepth: state.cursorDepth - 1 };
+    case 'RESET_DROP_DEPTH':
+      return { ...state, dropDepth: 0 };
+    case 'INCREMENT_DROP_DEPTH':
+      return { ...state, dropDepth: state.dropDepth + 1 };
+    case 'DECREMENT_DROP_DEPTH':
+      return { ...state, dropDepth: state.dropDepth - 1 };
     case 'RESET':
       return initState;
     default:

@@ -1,10 +1,10 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-// The cursorDepth variable helps us avoid the situation of multiple dragEnter events
-// When dragEnter is fired, we increment cursorDepth. So for each dragEnter event,
-// cursorDepth increments by 1.
-// When a dragLeave is fired, we decrement cursorDepth. If cursorDepth is still > 0,
+// The dropDepth variable helps us avoid the situation of multiple dragEnter events
+// When dragEnter is fired, we increment dropDepth. So for each dragEnter event,
+// dropDepth increments by 1.
+// When a dragLeave is fired, we decrement dropDepth. If dropDepth is still > 0,
 // we know we're not yet at the topmost div, and we don't set any state.
 
 const DragAndDrop = props => {
@@ -14,7 +14,7 @@ const DragAndDrop = props => {
     e.preventDefault();
     e.stopPropagation();
 
-    dispatch({ type: 'INCREMENT_CURSOR_DEPTH' });
+    dispatch({ type: 'INCREMENT_DROP_DEPTH' });
     dispatch({ type: 'SET_DROPPED', dropped: false });
   };
 
@@ -22,8 +22,8 @@ const DragAndDrop = props => {
     e.preventDefault();
     e.stopPropagation();
 
-    dispatch({ type: 'DECREMENT_CURSOR_DEPTH' });
-    if (info.cursorDepth > 0) return;
+    dispatch({ type: 'DECREMENT_DROP_DEPTH' });
+    if (info.dropDepth > 0) return;
     dispatch({ type: 'SET_IN_DROP_ZONE', inDropZone: false });
   };
 
@@ -38,10 +38,12 @@ const DragAndDrop = props => {
     e.preventDefault();
     e.stopPropagation();
 
-    if (e.dataTransfer.files) {
-      fileDropHandler([ ...e.dataTransfer.files ]);
+    const files = [ ...e.dataTransfer.files ];
+
+    if (files && files.length > 0) {
+      fileDropHandler(files);
       e.dataTransfer.clearData();
-      dispatch({ type: 'RESET_CURSOR_DEPTH', cursorDepth: 0 });
+      dispatch({ type: 'RESET_DROP_DEPTH', dropDepth: 0 });
     }
     dispatch({ type: 'RESET' });
   };
